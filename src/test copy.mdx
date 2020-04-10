@@ -1,0 +1,61 @@
+---
+name: Network Management
+route: /fi
+---
+
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
+
+
+# Network Management
+## DNS Management
+
+### DNS Appliances
+DNS stands for Domain Name System. It provides resolution to a web URL. It converts web URL into an IP address. TCPWave IPAM contains 5 types of appliances.
+They are: ISC BIND Authoritative, ISC BIND Cache, NSD Authoritative, UNBOUND Cache, DNS Proxy appliance.
+
+This document describes the TCPWave IPAMs architecture, components, GUI administration,
+security and tuning details. It also describes the basic IPAM principles and gives guidance to
+operate the TCPWave IPAM.
+
+## TCPWave DNS Appliances
+### Adding DNS Appliance
+To add a DNS Appliance in the IPAM, go to DNS Appliances page by clicking on the Network Management menu located at the top section of the IPAM Interface.
+
+-  To add a DNS Appliance, click the plus button located at the top left corner of the DNS view. While creating an object for DNS Appliance, user should select the object type as “TCPWave Remote”.  Enter IP Address (TCPWave Remote”) in the text field to auto fill host name and domain name.
+-  When the user clicks on plus button, a details screen is displayed. In the details screen, type the following details in their respective fields.
+-  **Firewall Template:** When the user associates the firewall template to the appliance, the configuration data is sent to the remote, update-firewall.sh script and iptables are restarted. When DNS/DHCP/IPAM appliance is updated with SNMP ACLs, by taking the configuration from associated firewall template, it updates the firewall rules configuration file with SNMP ACLs and sends to the remote.
+-  When the firewall template association is changed for an appliance, the associated ACLs are taken from that appliance constructing the new firewall configuration file and sending it to the remote. When the firewall template gets self-updated, the list of appliances where the updated firewall template is associated constructing new configuration file is sent to the respective appliances.
+-  User can select SNMP ACLs on the create/edit appliance page on the Monitoring tab.
+Users can schedule the add/update/clone/delete and sync operations on a preferable date and time. During the creation of DNS appliance, once the user enters the relevant data in the fields and clicks OK, a pop-up appears – Please select OK to add now or Schedule to add later. On clicking Schedule, a **Schedule Add Operation** pop-up appears. 
+Enter the Job ID, Execute On (GMT) and Time along with the description and click OK.
+The scheduled job appears in the Scheduler Management section of the Administration tab. Users can schedule one-time job for add appliances operation.
+
+**Tab 1: Appliance Configuration**
+
+
+<TableContainer>
+  <Table style={{border: "2px solid black" }}>
+  <TableHead>
+    <TableRow>
+      <TableCell style={{fontWeight: "bold"}}>Input Field Label</TableCell>
+      <TableCell style={{fontWeight: "bold"}}>Mandatory</TableCell>
+      <TableCell style={{fontWeight: "bold"}}>Description</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+     <TableRow>
+      <TableCell>DNS Appliance Type</TableCell>
+      <TableCell>Yes</TableCell>
+      <TableCell>
+        Select one of the DNS Appliance types from the dropdown. The dropdown list includes<br/>
+        1. ISC BIND <br/>
+        2. Authoritative Appliance<br/>
+        3.	ISC BIND Cache Appliance<br/>
+        4.	UNBOUND Cache<br/> 
+        5.	NSD Authoritative Appliance (These appliances can only be slaves due to the inability to accept the dynamic updates.)<br/>
+        6.	DNS Proxy Appliance<br/>
+      </TableCell>
+   </TableRow>
+  </TableBody>
+  </Table>
+</TableContainer>
